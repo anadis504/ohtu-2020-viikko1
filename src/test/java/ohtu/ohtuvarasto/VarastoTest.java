@@ -65,4 +65,54 @@ public class VarastoTest {
         assertEquals(4, varasto.paljonkoMahtuu(), vertailuTarkkuus);
     }
 
+    @Test
+    public void negatiivinenOttamineneEiOnnistu() {
+        double otos = varasto.otaVarastosta(-1);
+        assertEquals(0, otos, vertailuTarkkuus);
+    }
+
+    @Test
+    public void liikaOttamistaEiSaaLiikaa() {
+        varasto.lisaaVarastoon(8);
+        double otos = varasto.otaVarastosta(10);
+
+        assertEquals(8, otos, vertailuTarkkuus);
+    }
+
+    @Test
+    public void kelvotonVarasto() {
+        Varasto kelvoton = new Varasto(-2, -3);
+        assertEquals(0, kelvoton.getTilavuus(), vertailuTarkkuus);
+        assertEquals(0, kelvoton.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void eiLisaaNegatiivista() {
+        varasto.lisaaVarastoon(-9);
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void kelvotonVarasto2() {
+        Varasto kelvoton = new Varasto(-2);
+        assertEquals(0, kelvoton.getTilavuus(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void saldoSuurempiKuinTilavuus() {
+        Varasto uusi = new Varasto(10, 20);
+        assertEquals(uusi.getTilavuus(), uusi.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void hyväVarasto() {
+        Varasto uusi = new Varasto(10, 9);
+        uusi.lisaaVarastoon(3);
+        assertEquals(10, uusi.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void toStringTest() {
+        varasto.toString();
+    }
 }
